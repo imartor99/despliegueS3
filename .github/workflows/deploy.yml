@@ -13,24 +13,24 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout del código
+      - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: 🛠️ Configurar Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: 📦 Instalar dependencias (Jest, JSDoc)
+      - name: Instalar dependencias (Jest, JSDoc)
         run: npm install 
 
-      - name: ✅ Ejecutar Pruebas Unitarias (Tarea 2)
-        run: npm test 
+      - name: Ejecutar Pruebas Unitarias 
+        run: ./node_modules/.bin/jest
 
-      - name: 📄 Generar Documentación (Tarea 3)
-        run: npm run docs 
+      - name: Generar Documentación 
+        run: ./node_modules/.bin/jsdoc script.js -d out -r
 
-      - name: 📤 Subir Documentación como Artefacto
+      - name: Subir Documentación como Artefacto
         uses: actions/upload-artifact@v4
         with:
           name: documentacion-jsdoc
@@ -43,10 +43,10 @@ jobs:
     if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' 
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout del código
+      - name: ⬇Checkout del código
         uses: actions/checkout@v4
 
-      - name: ⚙️ Configurar Credenciales de AWS (Con Token de Sesión)
+      - name: Configurar Credenciales de AWS (Con Token de Sesión)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           # Usamos los 5 Secrets configurados en GitHub
@@ -55,7 +55,7 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # ¡Necesario para AWS Academy!
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: 🚀 Desplegar a S3 (Sincronización)
+      - name:  Desplegar a S3 (Sincronización)
         run: |
           echo "Iniciando despliegue de archivos estáticos a s3://${{ secrets.S3_BUCKET_NAME }}"
           # Sincroniza el directorio local con el bucket S3, excluyendo archivos de configuración/pruebas/docs
