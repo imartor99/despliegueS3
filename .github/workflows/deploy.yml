@@ -1,0 +1,76 @@
+name: CI/CD Despliegue Estático S3
+
+# El workflow se dispara en push a estas ramas
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - "feature/**"
+
+jobs:
+  # 1. CI (Integración Continua): Pruebas y Documentación
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependencias (Jest, JSDoc)
+        run: npm install
+
+      - name: Dar permisos de ejecución a los binarios
+        run: |
+          chmod +x ./node_modules/.bin/jest
+          chmod +x ./node_modules/.bin/jsdoc
+
+      - name: Ejecutar Pruebas Unitarias
+        run: ./node_modules/.bin/jest
+
+      - name: Generar Documentación
+        run: ./node_modules/.bin/jsdoc script.js -d out -r
+
+      - name: Subir Documentación como Artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentacion-jsdoc
+          path: out/
+
+  # 2. CD (Despliegue Continuo): Despliegue a S3
+  deploy:
+    needs: ci # Solo se ejecuta si el job 'ci' ha pasado correctamente
+    # Solo despliega si el push va a las ramas 'dev' o 'main'
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Credenciales de AWS (Con Token de Sesión)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # Usamos los 5 Secrets configurados en GitHub
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # ¡Necesario para AWS Academy!
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Desplegar a S3 (Sincronización)
+        run: |
+          echo "Iniciando despliegue de archivos estáticos a s3://${{ secrets.S3_BUCKET_NAME }}"
+          # AHORA ELIMINAMOS EL ARGUMENTO --acl public-read
+          aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "node_modules/*" \
+            --exclude "out/*" \
+            --exclude "*.test.js" \
+            --exclude "package.json" \
+            --exclude "package-lock.json"
+          echo "Despliegue finalizado."

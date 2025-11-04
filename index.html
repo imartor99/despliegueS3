@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Precio Final</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Calculadora de Precio Final</h1>
+      <p class="subtitle">
+        Aplica descuentos e impuestos (IVA) al precio base.
+      </p>
+
+      <div class="input-group">
+        <label for="basePrice">Precio Base (€):</label>
+        <input type="number" id="basePrice" min="0" />
+      </div>
+
+      <div class="input-group">
+        <label for="discount">Descuento Aplicable (%):</label>
+        <input type="number" id="discount" min="0" max="100" />
+      </div>
+
+      <div class="input-group">
+        <label for="vatRate">Tasa de IVA (%):</label>
+        <input type="number" id="vatRate" min="0" max="100" />
+      </div>
+
+      <button id="calculate-btn">Calcular Precio Final</button>
+
+      <div id="results" class="results-box">
+        <p>Precio con Descuento:</p>
+        <p class="intermediate-amount" id="discounted-price">0.00 €</p>
+        <p>Precio Final con IVA:</p>
+        <p class="total-amount" id="final-amount">0.00 €</p>
+      </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+    
+  </body>
+</html>
