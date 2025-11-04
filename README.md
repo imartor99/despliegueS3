@@ -1,10 +1,10 @@
-# 🚀 Guía de Despliegue CI/CD Automatizado a AWS S3
+# Guía de Despliegue CI/CD Automatizado a AWS S3
 
 Este documento detalla el proceso completo de **Integración Continua y Despliegue Continuo (CI/CD)** para una aplicación web estática, utilizando **GitHub Actions** para automatizar la prueba, documentación y despliegue a **AWS S3** (simulando un entorno de AWS Academy Lab).
 
 ---
 
-## 🧭 I. Visión General del Proceso y Entorno
+## I. Visión General del Proceso y Entorno
 
 El *pipeline* automatiza el flujo de trabajo:  
 **Código (Rama `dev`) → Pruebas (CI) → Despliegue (CD) → Producción (S3)**
@@ -109,10 +109,10 @@ jobs:
     if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout del código
+      - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: ⚙️ Configurar Credenciales de AWS (Con Token de Sesión)
+      - name: Configurar Credenciales de AWS (Con Token de Sesión)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -120,7 +120,7 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: 🚀 Desplegar a S3 (Sincronización)
+      - name: Desplegar a S3 (Sincronización)
         run: |
           echo "Iniciando despliegue a s3://${{ secrets.S3_BUCKET_NAME }}"
           # Se elimina --acl public-read (Solución al error AccessControlListNotSupported)
