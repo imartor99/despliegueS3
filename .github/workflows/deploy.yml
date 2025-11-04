@@ -63,10 +63,9 @@ jobs:
       - name: Desplegar a S3 (Sincronización)
         run: |
           echo "Iniciando despliegue de archivos estáticos a s3://${{ secrets.S3_BUCKET_NAME }}"
-          # Sincroniza el directorio local con el bucket S3, excluyendo archivos de configuración/pruebas/docs
+          # AHORA ELIMINAMOS EL ARGUMENTO --acl public-read
           aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} \
             --delete \
-            --acl public-read \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude "node_modules/*" \
