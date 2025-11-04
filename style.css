@@ -1,0 +1,127 @@
+/* style.css */
+
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #0056b3;
+  --background-color: #f8f9fa;
+  --card-background: #ffffff;
+  --text-color: #343a40;
+  --success-color: #28a745;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: var(--card-background);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #6c757d;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
+/* Input Group Styling */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+/* Button Styling */
+#calculate-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#calculate-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Results Styling */
+.results-box {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px solid var(--success-color);
+  border-radius: 8px;
+  background-color: #e6ffed;
+}
+
+.results-box p {
+  margin: 5px 0;
+}
+
+.intermediate-amount {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(
+    --secondary-color
+  ); /* Color secundario para el precio con descuento */
+  margin-bottom: 10px;
+}
+
+.total-amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--success-color); /* Color de éxito para el precio final */
+}
+
+.note {
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #e9ecef;
+  font-size: 0.8rem;
+  color: #adb5bd;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "despliegues3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "npx jest",
+    "docs": "jsdoc script.js -d out -r"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imartor99/despliegueS3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imartor99/despliegueS3/issues"
+  },
+  "homepage": "https://github.com/imartor99/despliegueS3#readme",
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "jsdoc": "^4.0.5"
+  }
+}
